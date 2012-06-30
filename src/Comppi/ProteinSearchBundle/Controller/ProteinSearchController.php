@@ -25,6 +25,8 @@ class ProteinSearchController extends Controller
 		
 		$request = $this->getRequest();
 		if ($request->getMethod() == 'POST') {
+			$DB = $this->get('database_connection');
+			
 			$this->species_requested['Hs'] = intval($request->request->get('fProtSearchSpecHs'));
 			$this->species_requested['Dm'] = intval($request->request->get('fProtSearchSpecDm'));
 			$this->species_requested['Ce'] = intval($request->request->get('fProtSearchSpecCe'));
@@ -48,7 +50,6 @@ class ProteinSearchController extends Controller
 
 				// Low-level Doctrine DBAL commands with custom query building to have better control
 				// @TODO: convert to Doctrine query builder ( conn->createQueryBuilder() )?
-				$DB = $this->get('database_connection');
 				$locs = $this->get('comppi.build.localizationTranslator');
 				$one_sp_at_least = false;
 
